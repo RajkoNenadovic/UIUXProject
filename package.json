@@ -1,0 +1,14 @@
+{
+  "name": "plain-language-layer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "db:init": "npm run db:init --prefix server",
+    "db:seed": "npm run db:seed --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
