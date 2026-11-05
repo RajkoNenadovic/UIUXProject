@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -k \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix client",
     "db:init": "npm run db:init --prefix server",
     "db:seed": "npm run db:seed --prefix server",
     "i18n:check": "node scripts/check-i18n.js"

@@ -4,24 +4,29 @@ import { ConnectorBadge } from './ConnectorBadge.jsx';
 import { PlainCard } from './PlainCard.jsx';
 import { ReaderFooter } from './ReaderFooter.jsx';
 import { SentenceCard } from './SentenceCard.jsx';
+import { usePrototype } from '../../hooks/usePrototype.jsx';
 
-export function SplitReader({ sentences }) {
+export function SplitReader({ sentences, selectedId: controlledSelectedId, onSelectedChange, onOpenJargon, onOpenVerify, onOpenQa }) {
   const { i18n, t } = useTranslation();
-  const [selectedId, setSelectedId] = useState(sentences[0]?.id ?? null);
+  const { readingLevel } = usePrototype();
+  const [localSelectedId, setLocalSelectedId] = useState(sentences[0]?.id ?? null);
+  const selectedId = controlledSelectedId ?? localSelectedId;
+  const setSelectedId = (id) => { setLocalSelectedId(id); onSelectedChange?.(id); };
+  const [linksVisible, setLinksVisible] = useState(true);
   const page = new Intl.NumberFormat(i18n.language).format(2);
 
   return (
     <section className="split-reader" aria-label={t('readerWorkspace')}>
       <div className="reader-toolbar">
         <nav className="reader-tabs" aria-label={t('documentNavigation')}>
-          <button className="reader-tab reader-tab-active" type="button" aria-current="page">{t('routeReader')}</button>
-          <button className="reader-tab" type="button">{t('routeFocus')}</button>
-          <button className="reader-tab" type="button">{t('routeActions')}</button>
+          <a className="reader-tab reader-tab-active" href="/documents/1/reader" aria-current="page">{t('routeReader')}</a>
+          <a className="reader-tab" href="/documents/1/focus">{t('routeFocus')}</a>
+          <a className="reader-tab" href="/documents/1/actions">{t('routeActions')}</a>
         </nav>
         <div className="reader-legend" aria-label={t('readerLegend')}>
           <span className="legend-item legend-match"><span aria-hidden="true" />{t('matchesSource')}</span>
           <span className="legend-item legend-uncertain"><span aria-hidden="true" />{t('uncertain')}</span>
-          <button className="links-toggle" type="button">{t('linksOn')}</button>
+          <button className="links-toggle" type="button" onClick={() => setLinksVisible((visible) => !visible)} aria-pressed={linksVisible}>{t(linksVisible ? 'linksOn' : 'linksOff')}</button>
         </div>
       </div>
 
@@ -30,7 +35,7 @@ export function SplitReader({ sentences }) {
         <h2>{t('plainLanguage')} <span>{t('columnDetail', { detail: t('readingLevelValue', { level: 6 }) })}</span></h2>
       </div>
 
-      <div className="reader-grid">
+      <div className={`reader-grid ${linksVisible ? '' : 'reader-links-hidden'}`}>
         {sentences.map((sentence) => (
           <Fragment key={sentence.id}>
             <SentenceCard
@@ -38,6 +43,7 @@ export function SplitReader({ sentences }) {
               sentence={sentence}
               selected={sentence.id === selectedId}
               onSelect={() => setSelectedId(sentence.id)}
+              onOpenJargon={onOpenJargon}
             />
             <ConnectorBadge
               key="connector"
@@ -51,11 +57,14 @@ export function SplitReader({ sentences }) {
               sentence={sentence}
               selected={sentence.id === selectedId}
               onSelect={() => setSelectedId(sentence.id)}
+              onVerify={() => onOpenVerify(sentence.id)}
+              onAsk={onOpenQa}
+              readingLevel={readingLevel}
             />
           </Fragment>
         ))}
       </div>
-      <ReaderFooter sentences={sentences} />
+      <ReaderFooter sentences={sentences} onVerify={onOpenVerify} onAsk={onOpenQa} />
     </section>
   );
 }

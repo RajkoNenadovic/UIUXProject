@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-export function ReaderFooter({ sentences }) {
+export function ReaderFooter({ sentences, onVerify, onAsk }) {
   const { i18n, t } = useTranslation();
   const counts = sentences.reduce((result, sentence) => {
     result[sentence.status] += 1;
@@ -16,8 +16,8 @@ export function ReaderFooter({ sentences }) {
       <strong>{t('readerFooterGenerated')}</strong>
       <span>{t('matchSummary', { count: sentences.length, matched, total, uncertain, skipped })}</span>
       <nav className="reader-footer-links" aria-label={t('readerFooterActions')}>
-        <button type="button">{t('howChecked')}</button>
-        <button type="button">{t('reportProblem')}</button>
+        <button type="button" onClick={onVerify}>{t('howChecked')}</button>
+        <button type="button" onClick={onAsk}>{t('askQuestion')}</button>
       </nav>
     </footer>
   );
