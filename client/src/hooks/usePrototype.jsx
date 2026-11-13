@@ -9,6 +9,7 @@ export function PrototypeProvider({ children }) {
   const [savedTerms, setSavedTerms] = useState([]);
   const [toast, setToast] = useState('');
   const [documentTitle, setDocumentTitle] = useState('Lease_Agreement_2026.pdf');
+  const [dyslexiaFriendly, setDyslexiaFriendly] = useState(false);
 
   const toggleAction = (id) => {
     setActions((current) => current.map((action) => action.id === id ? { ...action, done: !action.done } : action));
@@ -19,8 +20,8 @@ export function PrototypeProvider({ children }) {
   };
   const notify = (messageKey) => setToast(messageKey);
   const value = useMemo(() => ({
-    readingLevel, setReadingLevel, actions, toggleAction, savedTerms, saveTerm, toast, setToast, notify, documentTitle, setDocumentTitle
-  }), [readingLevel, actions, savedTerms, toast, documentTitle]);
+    readingLevel, setReadingLevel, actions, toggleAction, savedTerms, saveTerm, toast, setToast, notify, documentTitle, setDocumentTitle, dyslexiaFriendly, setDyslexiaFriendly
+  }), [readingLevel, actions, savedTerms, toast, documentTitle, dyslexiaFriendly]);
 
   return <PrototypeContext.Provider value={value}>{children}</PrototypeContext.Provider>;
 }

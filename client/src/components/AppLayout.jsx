@@ -6,9 +6,9 @@ import { usePrototype } from '../hooks/usePrototype.jsx';
 
 export function AppLayout() {
   const { t } = useTranslation();
-  const { toast, setToast } = usePrototype();
+  const { toast, setToast, dyslexiaFriendly } = usePrototype();
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${dyslexiaFriendly ? 'dyslexia-friendly' : ''}`}>
       <a className="skip-link" href="#main-content">{t('skipToContent')}</a>
       <Header />
       <main id="main-content" className="main-content"><Outlet /></main>

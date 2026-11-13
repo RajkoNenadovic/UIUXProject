@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { ConnectorBadge } from './ConnectorBadge.jsx';
 import { PlainCard } from './PlainCard.jsx';
 import { ReaderFooter } from './ReaderFooter.jsx';
@@ -19,9 +20,9 @@ export function SplitReader({ sentences, selectedId: controlledSelectedId, onSel
     <section className="split-reader" aria-label={t('readerWorkspace')}>
       <div className="reader-toolbar">
         <nav className="reader-tabs" aria-label={t('documentNavigation')}>
-          <a className="reader-tab reader-tab-active" href="/documents/1/reader" aria-current="page">{t('routeReader')}</a>
-          <a className="reader-tab" href="/documents/1/focus">{t('routeFocus')}</a>
-          <a className="reader-tab" href="/documents/1/actions">{t('routeActions')}</a>
+          <Link className="reader-tab reader-tab-active" to="/documents/1/reader" aria-current="page">{t('routeReader')}</Link>
+          <Link className="reader-tab" to="/documents/1/focus">{t('routeFocus')}</Link>
+          <Link className="reader-tab" to="/documents/1/actions">{t('routeActions')}</Link>
         </nav>
         <div className="reader-legend" aria-label={t('readerLegend')}>
           <span className="legend-item legend-match"><span aria-hidden="true" />{t('matchesSource')}</span>
@@ -32,7 +33,7 @@ export function SplitReader({ sentences, selectedId: controlledSelectedId, onSel
 
       <div className="reader-column-headings">
         <h2>{t('originalText')} <span>{t('columnDetail', { detail: t('readerPage', { page }) })}</span></h2>
-        <h2>{t('plainLanguage')} <span>{t('columnDetail', { detail: t('readingLevelValue', { level: 6 }) })}</span></h2>
+        <h2>{t('plainLanguage')} <span>{t('columnDetail', { detail: t('readingLevelValue', { level: readingLevel }) })}</span></h2>
       </div>
 
       <div className={`reader-grid ${linksVisible ? '' : 'reader-links-hidden'}`}>

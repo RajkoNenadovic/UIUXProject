@@ -7,7 +7,7 @@ const languageLabels = { en: 'languageEnglish', es: 'languageSpanish', hr: 'lang
 
 export function Header() {
   const { t, i18n } = useTranslation();
-  const { readingLevel, setReadingLevel, documentTitle } = usePrototype();
+  const { readingLevel, setReadingLevel, documentTitle, dyslexiaFriendly, setDyslexiaFriendly } = usePrototype();
   const changeLanguage = async (event) => {
     const locale = event.target.value;
     await i18n.changeLanguage(locale);
@@ -33,12 +33,22 @@ export function Header() {
             <option value="10">{t('readingLevelValue', { level: 10 })}</option>
           </select>
         </label>
+        <button
+          className={`accessibility-toggle ${dyslexiaFriendly ? 'accessibility-toggle-active' : ''}`}
+          type="button"
+          aria-pressed={dyslexiaFriendly}
+          onClick={() => setDyslexiaFriendly((enabled) => !enabled)}
+        >
+          <span className="toggle-track" aria-hidden="true"><span /></span>
+          {t('dyslexiaFriendly')}
+        </button>
         <label className="select-label language-select">
           <span>{t('language')}</span>
           <select value={i18n.language} onChange={changeLanguage} aria-label={t('language')}>
             {supportedLocales.map((locale) => <option key={locale} value={locale}>{t(languageLabels[locale])}</option>)}
           </select>
         </label>
+        <span className="profile-mark" aria-hidden="true">PL</span>
       </div>
     </header>
   );

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '../components/Button.jsx';
 import { useState } from 'react';
 import { usePrototype } from '../hooks/usePrototype.jsx';
@@ -7,6 +7,7 @@ import { usePrototype } from '../hooks/usePrototype.jsx';
 export function DocumentsPage() {
   const { t } = useTranslation();
   const { setDocumentTitle } = usePrototype();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [formOpen, setFormOpen] = useState(searchParams.get('new') === '1');
   const [title, setTitle] = useState('');
@@ -14,7 +15,7 @@ export function DocumentsPage() {
   const submit = (event) => {
     event.preventDefault();
     setDocumentTitle(title.trim() || t('sampleFile'));
-    window.location.href = text.trim() ? '/documents/1/summary' : '/documents/1/unreadable';
+    navigate(text.trim() ? '/documents/1/summary' : '/documents/1/unreadable');
   };
   return (
     <section className="page documents-page" aria-labelledby="documents-title">
