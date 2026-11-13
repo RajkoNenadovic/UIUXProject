@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ConnectorBadge } from './ConnectorBadge.jsx';
 import { PlainCard } from './PlainCard.jsx';
 import { ReaderFooter } from './ReaderFooter.jsx';
@@ -10,6 +10,7 @@ import { usePrototype } from '../../hooks/usePrototype.jsx';
 export function SplitReader({ sentences, selectedId: controlledSelectedId, onSelectedChange, onOpenJargon, onOpenVerify, onOpenQa }) {
   const { i18n, t } = useTranslation();
   const { readingLevel } = usePrototype();
+  const { id = '1' } = useParams();
   const [localSelectedId, setLocalSelectedId] = useState(sentences[0]?.id ?? null);
   const selectedId = controlledSelectedId ?? localSelectedId;
   const setSelectedId = (id) => { setLocalSelectedId(id); onSelectedChange?.(id); };
@@ -20,9 +21,9 @@ export function SplitReader({ sentences, selectedId: controlledSelectedId, onSel
     <section className="split-reader" aria-label={t('readerWorkspace')}>
       <div className="reader-toolbar">
         <nav className="reader-tabs" aria-label={t('documentNavigation')}>
-          <Link className="reader-tab reader-tab-active" to="/documents/1/reader" aria-current="page">{t('routeReader')}</Link>
-          <Link className="reader-tab" to="/documents/1/focus">{t('routeFocus')}</Link>
-          <Link className="reader-tab" to="/documents/1/actions">{t('routeActions')}</Link>
+          <Link className="reader-tab reader-tab-active" to={`/documents/${id}/reader`} aria-current="page">{t('routeReader')}</Link>
+          <Link className="reader-tab" to={`/documents/${id}/focus`}>{t('routeFocus')}</Link>
+          <Link className="reader-tab" to={`/documents/${id}/actions`}>{t('routeActions')}</Link>
         </nav>
         <div className="reader-legend" aria-label={t('readerLegend')}>
           <span className="legend-item legend-match"><span aria-hidden="true" />{t('matchesSource')}</span>

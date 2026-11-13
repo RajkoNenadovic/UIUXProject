@@ -4,12 +4,21 @@ import { DocumentFrame } from '../components/navigation/DocumentFrame.jsx';
 import { Button } from '../components/Button.jsx';
 import { exportFormats } from '../data/prototypeData.js';
 import { usePrototype } from '../hooks/usePrototype.jsx';
+import { useDocumentData } from '../hooks/useDocumentData.jsx';
 
 export function ExportPage() {
   const { t } = useTranslation();
   const { notify } = usePrototype();
+  const { document, loading, error } = useDocumentData();
   const [format, setFormat] = useState('pdf');
-  const exportText = t('exportTextContent');
+  if (loading) return <p className="loading-line">{t('loadingDetail')}</p>;
+  if (error || !document) return <p className="not-found">{error || t('errorDetail')}</p>;
+  const exportText = [
+    document.title,
+    '',
+    ...document.sentences.map((sentence) => sentence.plainTextByLevel?.[document.readingLevel] || sentence.plainText)
+  ].join('\n');
+  const filename = document.title.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase() || 'document';
   const download = (content, filename, type) => {
     const blob = new Blob([content], { type });
     const url = URL.createObjectURL(blob);
@@ -21,10 +30,10 @@ export function ExportPage() {
   };
   const exportFile = () => {
     if (format === 'text') {
-      download(exportText, 'plain-language-summary.txt', 'text/plain');
+      download(exportText, `${filename}-summary.txt`, 'text/plain');
       notify('downloadStarted');
     } else if (format === 'word') {
-      download(String.raw`{\rtf1\ansi ${exportText.replace(/\n/g, '\\line ')}}`, 'plain-language-summary.rtf', 'application/rtf');
+      download(String.raw`{\rtf1\ansi ${exportText.replace(/\n/g, '\\line ')}}`, `${filename}-summary.rtf`, 'application/rtf');
       notify('downloadStarted');
     } else if (format === 'share') {
       copyLink();

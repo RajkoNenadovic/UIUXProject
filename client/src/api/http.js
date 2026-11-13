@@ -23,6 +23,7 @@ export const healthApi = {
 
 export const documentsApi = {
   list: (search = '') => fetchJson(`/api/documents${search ? `?search=${encodeURIComponent(search)}` : ''}`),
+  get: (id) => fetchJson(`/api/documents/${encodeURIComponent(id)}`),
   create: (document) => fetchJson('/api/documents', {
     method: 'POST',
     body: JSON.stringify(document)
