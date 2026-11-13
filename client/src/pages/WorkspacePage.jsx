@@ -24,7 +24,8 @@ export function WorkspacePage({ variant = 'dashboard' }) {
   const [savedDocumentIds, setSavedDocumentIds] = useState(() => {
     try {
       return JSON.parse(window.localStorage.getItem('clearlayer-saved-documents') || '[]');
-    } catch {
+    } catch (error) {
+      console.error('Unable to read saved documents.', error);
       return [];
     }
   });
