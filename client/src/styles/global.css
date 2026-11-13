@@ -122,8 +122,26 @@ h2 { font-size: var(--text-lg); line-height: 1.2; }
 .document-stepper .step-active { border-bottom: 3px solid var(--color-blue); color: var(--color-blue); font-weight: 800; }
 .document-frame-body { min-width: 0; }
 .back-link { display: inline-block; margin-top: var(--space-5); color: var(--color-muted); }
-.dyslexia-friendly { --font-body: Arial, sans-serif; --font-display: Arial, sans-serif; font-family: Arial, sans-serif; letter-spacing: 0.03em; }
-.dyslexia-friendly h1, .dyslexia-friendly h2, .dyslexia-friendly h3 { font-family: Arial, sans-serif; }
+.dyslexia-friendly {
+  --font-body: "OpenDyslexic", "Comic Sans MS", Verdana, sans-serif;
+  --font-display: "OpenDyslexic", "Comic Sans MS", Verdana, sans-serif;
+  font-family: var(--font-body);
+  font-size: 1.06rem;
+  letter-spacing: 0.045em;
+  word-spacing: 0.12em;
+  line-height: 1.75;
+}
+.dyslexia-friendly h1, .dyslexia-friendly h2, .dyslexia-friendly h3, .dyslexia-friendly strong, .dyslexia-friendly button, .dyslexia-friendly input, .dyslexia-friendly select, .dyslexia-friendly textarea {
+  font-family: var(--font-body);
+  letter-spacing: 0.035em;
+}
+.dyslexia-friendly p, .dyslexia-friendly li, .dyslexia-friendly label, .dyslexia-friendly .plain-text, .dyslexia-friendly .sentence-text {
+  max-width: 75ch;
+  line-height: 1.85;
+}
+.dyslexia-friendly .sentence-card-button, .dyslexia-friendly .plain-card-button { min-height: 10rem; }
+.dyslexia-friendly .focus-sentence { margin-bottom: calc(var(--space-5) * 1.35); }
+.dyslexia-friendly .workspace-document, .dyslexia-friendly .notification-list article, .dyslexia-friendly .action-item { padding: calc(var(--space-3) * 1.25); }
 .new-document-form, .summary-card, .next-deadline, .export-panel, .scanner-surface, .unreadable-panel { border: 1px solid var(--color-line); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-soft); }
 .new-document-form { display: grid; gap: var(--space-4); margin-bottom: var(--space-5); padding: var(--space-5); }
 .new-document-form label, .report-form label, .qa-form label { display: grid; gap: var(--space-2); color: var(--color-muted); font-weight: 700; }

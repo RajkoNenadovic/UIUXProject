@@ -13,7 +13,7 @@ const navItems = [
 ];
 
 export function WorkspacePage({ variant = 'dashboard' }) {
-  const { setDocumentTitle, readingLevel, setReadingLevel, dyslexiaFriendly, setDyslexiaFriendly } = usePrototype();
+  const { setDocumentTitle, readingLevel, setReadingLevel, dyslexiaFriendly, setDyslexiaFriendly, notify } = usePrototype();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const [documents, setDocuments] = useState([]);
@@ -21,6 +21,13 @@ export function WorkspacePage({ variant = 'dashboard' }) {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [savedDocumentIds, setSavedDocumentIds] = useState(() => {
+    try {
+      return JSON.parse(window.localStorage.getItem('clearlayer-saved-documents') || '[]');
+    } catch {
+      return [];
+    }
+  });
 
   const loadDocuments = async (term = '') => {
     setLoading(true);
@@ -41,6 +48,30 @@ export function WorkspacePage({ variant = 'dashboard' }) {
     const timer = window.setTimeout(() => loadDocuments(search), 250);
     return () => window.clearTimeout(timer);
   }, [search, variant]);
+
+  const toggleSaved = (documentId) => {
+    setSavedDocumentIds((current) => {
+      const next = current.includes(documentId) ? current.filter((id) => id !== documentId) : [...current, documentId];
+      window.localStorage.setItem('clearlayer-saved-documents', JSON.stringify(next));
+      notify(next.includes(documentId) ? 'documentSaved' : 'documentUnsaved');
+      return next;
+    });
+  };
+
+  const shareDocument = async (documentId) => {
+    const url = `${window.location.origin}/documents/${documentId}/summary`;
+    if (!navigator.clipboard) {
+      notify('linkCopyUnsupported');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      notify('documentLinkCopied');
+    } catch (error) {
+      console.error('Unable to copy document link.', error);
+      notify('linkCopyUnsupported');
+    }
+  };
 
   const handleFile = async (file) => {
     if (!file) return;
@@ -87,7 +118,7 @@ export function WorkspacePage({ variant = 'dashboard' }) {
         <div className="workspace-main">
           {variant === 'dashboard' && <DashboardContent recent={recent} fileInputRef={fileInputRef} handleFile={handleFile} uploading={uploading} message={message} documents={documents} onNew={() => fileInputRef.current?.click()} />}
           {variant === 'storage' && <StorageContent documents={documents} classes={classes} fileInputRef={fileInputRef} handleFile={handleFile} uploading={uploading} message={message} />}
-          {variant === 'library' && <LibraryContent documents={documents} search={search} setSearch={setSearch} loading={loading} onReset={() => setSearch('')} onUpload={() => fileInputRef.current?.click()} />}
+          {variant === 'library' && <LibraryContent documents={documents} search={search} setSearch={setSearch} loading={loading} onReset={() => setSearch('')} onUpload={() => fileInputRef.current?.click()} savedDocumentIds={savedDocumentIds} onSave={toggleSaved} onShare={shareDocument} />}
           {variant === 'profile' && <ProfileContent readingLevel={readingLevel} setReadingLevel={setReadingLevel} dyslexiaFriendly={dyslexiaFriendly} setDyslexiaFriendly={setDyslexiaFriendly} />}
           {variant === 'notifications' && <NotificationsContent />}
           {variant === 'help' && <HelpContent />}
@@ -118,8 +149,8 @@ function StorageContent({ documents, classes, fileInputRef, handleFile, uploadin
   return <><div className="workspace-title"><h1>Storage</h1><p>Upload & classify documents</p></div><UploadZone fileInputRef={fileInputRef} handleFile={handleFile} uploading={uploading} message={message} /><h2 className="workspace-section-title">Format</h2><div className="format-pills"><span className="format-pill format-pill-active">▤ PDF</span><span className="format-pill">▥ DOCX</span><span className="format-pill">▧ Image</span></div><h2 className="workspace-section-title">Classifications</h2><div className="classification-grid">{classes.map(([name, count]) => <div key={name}><strong>{name}</strong><small>{count} files</small></div>)}</div><DocumentList title="All files" documents={documents} /></>;
 }
 
-function LibraryContent({ documents, search, setSearch, loading, onReset, onUpload }) {
-  return <><div className="workspace-title"><div><h1>Decoded library</h1><p>{documents.length} decoded documents</p></div><button className="workspace-outline-button" type="button" onClick={() => setSearch(search ? '' : 'lease')}>↕ Recent</button></div>{loading ? <p>Loading documents...</p> : documents.length ? <DocumentList documents={documents} showActions /> : <div className="empty-library"><strong>No results found</strong><span>Search yielded 0 documents.</span><button className="workspace-outline-button" type="button" onClick={onReset}>Reset search filters</button><button className="workspace-dark-button" type="button" onClick={onUpload}>Upload new document</button></div>}</>;
+function LibraryContent({ documents, search, setSearch, loading, onReset, onUpload, savedDocumentIds, onSave, onShare }) {
+  return <><div className="workspace-title"><div><h1>Decoded library</h1><p>{documents.length} decoded documents</p></div><button className="workspace-outline-button" type="button" onClick={() => setSearch(search ? '' : 'lease')}>↕ Recent</button></div>{loading ? <p>Loading documents...</p> : documents.length ? <DocumentList documents={documents} showActions savedDocumentIds={savedDocumentIds} onSave={onSave} onShare={onShare} /> : <div className="empty-library"><strong>No results found</strong><span>Search yielded 0 documents.</span><button className="workspace-outline-button" type="button" onClick={onReset}>Reset search filters</button><button className="workspace-dark-button" type="button" onClick={onUpload}>Upload new document</button></div>}</>;
 }
 
 function ProfileContent({ readingLevel, setReadingLevel, dyslexiaFriendly, setDyslexiaFriendly }) {
@@ -143,6 +174,6 @@ function Stat({ value, label }) {
   return <div className="workspace-stat"><strong>{value}</strong><small>{label}</small></div>;
 }
 
-function DocumentList({ title, documents, showActions = false }) {
-  return <section className="workspace-documents"><div className="workspace-section-heading"><h2>{title}</h2><span>{documents.length}</span></div>{documents.map((document) => <article key={document.id} className="workspace-document"><span className="document-file-icon" aria-hidden="true">▤</span><div><strong>{document.title}</strong><small>{document.doc_type} · Grade {document.reading_level} · {document.page_count} pages</small></div>{showActions ? <div className="document-actions"><Link to={`/documents/${document.id}/summary`}>View</Link><button type="button">Save</button><button type="button">Share</button></div> : <Link to={`/documents/${document.id}/summary`} aria-label={`Open ${document.title}`}>›</Link>}</article>)}</section>;
+function DocumentList({ title, documents, showActions = false, savedDocumentIds = [], onSave, onShare }) {
+  return <section className="workspace-documents"><div className="workspace-section-heading"><h2>{title}</h2><span>{documents.length}</span></div>{documents.map((document) => <article key={document.id} className="workspace-document"><span className="document-file-icon" aria-hidden="true">▤</span><div><strong>{document.title}</strong><small>{document.doc_type} · Grade {document.reading_level} · {document.page_count} pages</small></div>{showActions ? <div className="document-actions"><Link to={`/documents/${document.id}/summary`}>View</Link><button type="button" onClick={() => onSave?.(document.id)}>{savedDocumentIds.includes(document.id) ? 'Saved' : 'Save'}</button><button type="button" onClick={() => onShare?.(document.id)}>Share</button></div> : <Link to={`/documents/${document.id}/summary`} aria-label={`Open ${document.title}`}>›</Link>}</article>)}</section>;
 }
