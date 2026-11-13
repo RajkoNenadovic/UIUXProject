@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import healthRouter from './routes/health.js';
 import settingsRouter from './routes/settings.js';
+import documentsRouter from './routes/documents.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(cors({ origin: clientOrigin }));
 app.use(express.json({ limit: '1mb' }));
 app.use('/api/health', healthRouter);
 app.use('/api/settings', settingsRouter);
+app.use('/api/documents', documentsRouter);
 app.use(notFoundHandler);
 app.use(errorHandler);
 

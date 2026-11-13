@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppLayout } from './components/AppLayout.jsx';
-import { DocumentsPage } from './pages/DocumentsPage.jsx';
+import { WorkspacePage } from './pages/WorkspacePage.jsx';
+import { OnboardingPage, SignInPage } from './pages/AuthPages.jsx';
 import { ReaderPage } from './pages/ReaderPage.jsx';
 import { PrototypeProvider } from './hooks/usePrototype.jsx';
 import { SummaryPage } from './pages/SummaryPage.jsx';
@@ -16,7 +17,14 @@ export function App() {
     <PrototypeProvider>
       <Routes>
         <Route element={<AppLayout />}>
-        <Route path="/" element={<DocumentsPage />} />
+        <Route path="/" element={<WorkspacePage />} />
+        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/onboarding" element={<OnboardingPage />} />
+        <Route path="/library" element={<WorkspacePage variant="library" />} />
+        <Route path="/storage" element={<WorkspacePage variant="storage" />} />
+        <Route path="/profile" element={<WorkspacePage variant="profile" />} />
+        <Route path="/notifications" element={<WorkspacePage variant="notifications" />} />
+        <Route path="/help" element={<WorkspacePage variant="help" />} />
         <Route path="/documents/:id/summary" element={<SummaryPage />} />
         <Route path="/documents/:id/reader" element={<ReaderPage />} />
         <Route path="/documents/:id/jargon" element={<ReaderPage initialPanel="jargon" />} />

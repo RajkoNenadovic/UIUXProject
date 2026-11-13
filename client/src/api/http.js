@@ -20,3 +20,19 @@ export async function fetchJson(path, options = {}) {
 export const healthApi = {
   check: () => fetchJson('/api/health')
 };
+
+export const documentsApi = {
+  list: (search = '') => fetchJson(`/api/documents${search ? `?search=${encodeURIComponent(search)}` : ''}`),
+  create: (document) => fetchJson('/api/documents', {
+    method: 'POST',
+    body: JSON.stringify(document)
+  })
+};
+
+export const settingsApi = {
+  get: () => fetchJson('/api/settings'),
+  update: (settings) => fetchJson('/api/settings', {
+    method: 'PUT',
+    body: JSON.stringify(settings)
+  })
+};
