@@ -6,6 +6,7 @@ export function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [resetRequested, setResetRequested] = useState(false);
   const submit = (event) => {
     event.preventDefault();
     if (!email.trim() || !password) {
@@ -15,7 +16,7 @@ export function SignInPage() {
     window.localStorage.setItem('clearlayer-session', 'active');
     navigate('/onboarding');
   };
-  return <div className="auth-page"><section className="auth-card"><div className="workspace-logo auth-logo">CL</div><h1>Sign in</h1><p>Decode institutional text with clarity.</p><form onSubmit={submit}><label>Email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@school.edu" /></label><label>Password<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="••••••••" /></label><button className="auth-forgot" type="button">Forgot password?</button>{error && <p className="workspace-error" role="alert">{error}</p>}<button className="workspace-dark-button" type="submit">Sign in</button></form><div className="auth-divider">OR</div><button className="workspace-outline-button" type="button" onClick={() => navigate('/onboarding')}>G　Continue with Google</button><button className="workspace-outline-button" type="button" onClick={() => navigate('/onboarding')}>♧　Continue with SSO</button><p className="auth-footer">New here? <button type="button" onClick={() => navigate('/onboarding')}>Create account</button></p></section></div>;
+  return <div className="auth-page"><section className="auth-card"><div className="workspace-logo auth-logo">CL</div><h1>Sign in</h1><p>Decode institutional text with clarity.</p><form onSubmit={submit}><label>Email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@school.edu" /></label><label>Password<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="••••••••" /></label><button className="auth-forgot" type="button" onClick={() => { setResetRequested(true); setError(''); }}>{resetRequested ? 'Reset instructions requested' : 'Forgot password?'}</button>{error && <p className="workspace-error" role="alert">{error}</p>}{resetRequested && <p className="auth-success" role="status">Password reset instructions will be sent to your email.</p>}<button className="workspace-dark-button" type="submit">Sign in</button></form><div className="auth-divider">OR</div><button className="workspace-outline-button" type="button" onClick={() => navigate('/onboarding')}>G　Continue with Google</button><button className="workspace-outline-button" type="button" onClick={() => navigate('/onboarding')}>♧　Continue with SSO</button><p className="auth-footer">New here? <button type="button" onClick={() => navigate('/onboarding')}>Create account</button></p></section></div>;
 }
 
 export function OnboardingPage() {

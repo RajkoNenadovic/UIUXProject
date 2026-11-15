@@ -155,16 +155,66 @@ function LibraryContent({ documents, search, setSearch, loading, onReset, onUplo
 }
 
 function ProfileContent({ readingLevel, setReadingLevel, dyslexiaFriendly, setDyslexiaFriendly }) {
-  return <><div className="workspace-title"><h1>Profile</h1></div><section className="profile-card"><div className="profile-person"><span className="profile-large-avatar">AR</span><div><strong>Alex Rivera</strong><small>alex.rivera@school.edu</small><span className="profile-tag">STUDENT</span></div><button className="workspace-outline-button" type="button">Edit</button></div><label className="profile-preference">Reading preference <strong>Grade {readingLevel}</strong><input type="range" min="6" max="10" step="2" value={readingLevel} onChange={(event) => setReadingLevel(Number(event.target.value))} /><span>Simple <i /> Detailed</span></label><div className="profile-setting"><span><strong>Readable font</strong><small>Use a dyslexia-friendly typeface.</small></span><button className={`setting-toggle ${dyslexiaFriendly ? 'setting-toggle-on' : ''}`} type="button" aria-pressed={dyslexiaFriendly} onClick={() => setDyslexiaFriendly((value) => !value)} /></div><div className="profile-setting"><span><strong>Read aloud</strong><small>Enable text-to-speech.</small></span><button className="setting-toggle" type="button" aria-label="Read aloud setting" /></div></section></>;
+  const [profile, setProfile] = useState(() => {
+    try {
+      const savedProfile = JSON.parse(window.localStorage.getItem('clearlayer-profile') || 'null');
+      if (savedProfile?.name && savedProfile?.email) return savedProfile;
+      return { name: 'Alex Rivera', email: 'alex.rivera@school.edu' };
+    } catch (error) {
+      console.error('Unable to read profile.', error);
+      return { name: 'Alex Rivera', email: 'alex.rivera@school.edu' };
+    }
+  });
+  const [draft, setDraft] = useState(profile);
+  const [editing, setEditing] = useState(false);
+  const [readAloud, setReadAloud] = useState(false);
+  const [profileMessage, setProfileMessage] = useState('');
+  const initials = profile.name.split(/\s+/).map((part) => part[0]).join('').slice(0, 2).toUpperCase();
+
+  const startEditing = () => {
+    setDraft(profile);
+    setProfileMessage('');
+    setEditing(true);
+  };
+  const cancelEditing = () => {
+    setDraft(profile);
+    setProfileMessage('');
+    setEditing(false);
+  };
+  const saveProfile = (event) => {
+    event.preventDefault();
+    const name = draft.name.trim();
+    const email = draft.email.trim();
+    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setProfileMessage('Enter a name and a valid email address.');
+      return;
+    }
+    const nextProfile = { name, email };
+    window.localStorage.setItem('clearlayer-profile', JSON.stringify(nextProfile));
+    setProfile(nextProfile);
+    setEditing(false);
+    setProfileMessage('Profile updated.');
+  };
+
+  return <><div className="workspace-title"><h1>Profile</h1></div><section className="profile-card">
+    {editing ? <form className="profile-edit-form" onSubmit={saveProfile}>
+      <label>Full name<input value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} autoFocus /></label>
+      <label>Email address<input type="email" value={draft.email} onChange={(event) => setDraft({ ...draft, email: event.target.value })} /></label>
+      <div className="profile-edit-actions"><button className="workspace-dark-button" type="submit">Save changes</button><button className="workspace-outline-button" type="button" onClick={cancelEditing}>Cancel</button></div>
+    </form> : <div className="profile-person"><span className="profile-large-avatar">{initials}</span><div><strong>{profile.name}</strong><small>{profile.email}</small><span className="profile-tag">STUDENT</span></div><button className="workspace-outline-button" type="button" onClick={startEditing}>Edit</button></div>}
+    {profileMessage && <p className="profile-message" role="status">{profileMessage}</p>}
+    <label className="profile-preference">Reading preference <strong>Grade {readingLevel}</strong><input type="range" min="6" max="10" step="2" value={readingLevel} onChange={(event) => setReadingLevel(Number(event.target.value))} /><span>Simple <i /> Detailed</span></label><div className="profile-setting"><span><strong>Readable font</strong><small>Use a dyslexia-friendly typeface.</small></span><button className={`setting-toggle ${dyslexiaFriendly ? 'setting-toggle-on' : ''}`} type="button" aria-pressed={dyslexiaFriendly} onClick={() => setDyslexiaFriendly((value) => !value)} /></div><div className="profile-setting"><span><strong>Read aloud</strong><small>Enable text-to-speech.</small></span><button className={`setting-toggle ${readAloud ? 'setting-toggle-on' : ''}`} type="button" aria-label="Read aloud setting" aria-pressed={readAloud} onClick={() => setReadAloud((value) => !value)} /></div></section></>;
 }
 
 function NotificationsContent() {
+  const [allRead, setAllRead] = useState(false);
   const notifications = [['Financial aid deadline', 'FAFSA renewal is due in 2 days.', 'Now'], ['Action required: lease notice', 'Your landlord notice needs a response by Fri.', '1h'], ['Decode complete', 'Insurance policy is ready to read.', '3h'], ['New document shared', 'Advisor added Course_Waiver.pdf.', 'Yesterday'], ['Reading tip', 'Try Simple mode for dense legal text.', '2d']];
-  return <><div className="workspace-title"><h1>Alerts</h1><button className="workspace-outline-button" type="button">Mark all read</button></div><div className="notification-stats"><Stat value="2" label="Urgent actions" /><Stat value="5" label="Total notifications" /></div><div className="notification-list">{notifications.map(([title, detail, time], index) => <article className={index < 2 ? 'notification-urgent' : ''} key={title}><span className="notification-icon" aria-hidden="true">{index < 2 ? '!' : '✓'}</span><div><strong>{title}</strong><p>{detail}</p></div><time>{time}</time></article>)}</div></>;
+  return <><div className="workspace-title"><h1>Alerts</h1><button className="workspace-outline-button" type="button" onClick={() => setAllRead(true)} aria-pressed={allRead}>{allRead ? 'All read' : 'Mark all read'}</button></div><div className="notification-stats"><Stat value={allRead ? '0' : '2'} label="Urgent actions" /><Stat value={notifications.length} label="Total notifications" /></div><div className="notification-list">{notifications.map(([title, detail, time], index) => <article className={!allRead && index < 2 ? 'notification-urgent' : ''} key={title}><span className="notification-icon" aria-hidden="true">{!allRead && index < 2 ? '!' : '✓'}</span><div><strong>{title}</strong><p>{detail}</p></div><time>{time}</time></article>)}</div></>;
 }
 
 function HelpContent() {
-  return <><div className="workspace-title"><h1>Help & support</h1></div><section className="help-card"><div className="help-flow"><HelpStep title="Complex document" detail="Analyzes complex legal, medical, and housing forms." /><span>→</span><HelpStep title="Simplification engine" detail="Rewrites for clarity while preserving meaning." /><span>→</span><HelpStep title="Simplified output" detail="Delivers a clean summary with key points." /></div><h2>FAQs</h2><details><summary>Is the translation legally binding?</summary><p>No. ClearLayer explains the document but does not replace professional advice.</p></details><details><summary>What formats are supported?</summary><p>Text files can be uploaded directly. PDF and image OCR are planned for the next processing step.</p></details><button className="workspace-dark-button" type="button">Start tutorial</button></section></>;
+  const [tutorialStarted, setTutorialStarted] = useState(false);
+  return <><div className="workspace-title"><h1>Help & support</h1></div><section className="help-card"><div className="help-flow"><HelpStep title="Complex document" detail="Analyzes complex legal, medical, and housing forms." /><span>→</span><HelpStep title="Simplification engine" detail="Rewrites for clarity while preserving meaning." /><span>→</span><HelpStep title="Simplified output" detail="Delivers a clean summary with key points." /></div><h2>FAQs</h2><details><summary>Is the translation legally binding?</summary><p>No. ClearLayer explains the document but does not replace professional advice.</p></details><details><summary>What formats are supported?</summary><p>Text files can be uploaded directly. PDF and image OCR are planned for the next processing step.</p></details>{tutorialStarted && <p className="profile-message" role="status">Tutorial started. Begin by uploading a text document from Dashboard.</p>}<button className="workspace-dark-button" type="button" onClick={() => setTutorialStarted((started) => !started)}>{tutorialStarted ? 'Close tutorial' : 'Start tutorial'}</button></section></>;
 }
 
 function HelpStep({ title, detail }) {
