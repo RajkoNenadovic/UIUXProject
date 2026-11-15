@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "concurrently -k \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "db:init": "npm run db:init --prefix server",
-    "db:seed": "npm run db:seed --prefix server"
+    "db:seed": "npm run db:seed --prefix server",
+    "test": "npm test --prefix server && npm test --prefix client"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

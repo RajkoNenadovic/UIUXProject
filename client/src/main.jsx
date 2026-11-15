@@ -6,6 +6,8 @@ import { App } from './App.jsx';
 import i18n from './i18n/index.js';
 import './styles/tokens.css';
 import './styles/global.css';
+import './styles/features.css';
+import './styles/auth.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

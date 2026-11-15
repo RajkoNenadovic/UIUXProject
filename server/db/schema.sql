@@ -63,3 +63,34 @@ CREATE TABLE IF NOT EXISTS term_cache (
   status TEXT NOT NULL DEFAULT 'success' CHECK (status IN ('success', 'not_found')),
   fetched_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- ---- Accounts (screens 01 and 02) -------------------------------------------------
+-- Added in the auth step. Everything here is CREATE ... IF NOT EXISTS, so running
+-- `npm run db:init` on an existing database only adds these tables.
+-- Reading preferences live on the user row (one set per person). The old single-row
+-- `settings` table is now only the set of defaults a new account starts with.
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+  display_name TEXT NOT NULL,
+  password_hash TEXT NOT NULL,
+  role TEXT CHECK (role IN ('adult', 'student', 'professional')),
+  onboarded_at TEXT,
+  reading_level INTEGER NOT NULL DEFAULT 6,
+  dyslexia_friendly INTEGER NOT NULL DEFAULT 0 CHECK (dyslexia_friendly IN (0, 1)),
+  font_size TEXT NOT NULL DEFAULT 'medium',
+  spacing TEXT NOT NULL DEFAULT 'comfortable',
+  locale TEXT NOT NULL DEFAULT 'en',
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Only a SHA-256 hash of the session token is stored, so a copy of the database
+-- cannot be used to impersonate anyone who is signed in.
+CREATE TABLE IF NOT EXISTS sessions (
+  token_hash TEXT PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  expires_at TEXT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);

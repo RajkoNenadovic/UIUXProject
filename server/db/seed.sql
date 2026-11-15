@@ -32,3 +32,25 @@ VALUES
   (2, 'remit', 'To send or pay money that is owed.', 'Remit the Rent in advance', 1),
   (3, 'sole discretion', 'The right to decide something without needing another person’s approval.', 'At its sole discretion', 1),
   (4, 'deemed', 'Treated as or considered to be something, even if it is not stated directly.', 'The tenancy shall be deemed renewed', 1);
+
+-- Phase 2: use stable type codes (translated in the UI) instead of English labels.
+UPDATE documents SET doc_type = 'lease' WHERE id = 1 AND doc_type = 'Lease agreement';
+
+-- Extra sample documents. Croatian diacritics (č ć š ž đ) and one Cyrillic title prove UTF-8 storage
+-- and locale-aware sorting. All content is invented; no real personal data.
+INSERT OR IGNORE INTO documents (id, title, doc_type, page_count, original_text, reading_level, status)
+VALUES
+  (2, 'Rješenje o privremenom boravku', 'residence', 3,
+   'Ovim se rješenjem odobrava privremeni boravak podnositelja zahtjeva na razdoblje od jedne godine. Podnositelj je dužan prijaviti promjenu adrese u roku od osam dana od dana promjene.', 6, 'ready'),
+  (3, 'Škola – ugovor o upisu', 'education', 5,
+   'Roditelj se obvezuje podmirivati mjesečnu participaciju do petog dana u mjesecu. U slučaju kašnjenja škola može obračunati zakonsku zateznu kamatu.', 6, 'ready'),
+  (4, 'Đački dom – pravilnik', 'education', 8,
+   'Stanari su dužni poštovati kućni red i noćni mir od 22 do 6 sati. Za štetu nastalu u sobi odgovara stanar koji ju je koristio.', 6, 'ready'),
+  (5, 'Žalba na porezno rješenje', 'tax', 2,
+   'Žalba se podnosi u roku od petnaest dana od dana primitka rješenja. Žalitelj mora navesti razloge zbog kojih pobija rješenje.', 6, 'ready'),
+  (6, 'Уговор о закупу стана', 'lease', 6,
+   'Закупац се обавезује да плаћа закупнину до петог дана у месецу. Закуподавац може раскинути уговор уз отказни рок од тридесет дана.', 6, 'ready'),
+  (7, 'Cjenik komunalnih usluga', 'other', 1,
+   'Cijena odvoza otpada iznosi dvanaest eura mjesečno po kućanstvu. Račun se izdaje do desetog dana u mjesecu.', 6, 'ready'),
+  (8, 'Čitanje brojila – obavijest', 'other', 1,
+   'Očitanje brojila obavlja se jednom godišnje. Korisnik je dužan omogućiti pristup brojilu.', 6, 'ready');

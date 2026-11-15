@@ -77,5 +77,282 @@
   "matchSummary_other": "{{matched}} de {{total}} oraciones coinciden con la fuente · {{uncertain}} inciertas · {{skipped}} omitidas",
   "readerFooterActions": "Acciones de verificación del lector",
   "howChecked": "¿Cómo se verificó esto?",
-  "reportProblem": "Informar de un problema"
+  "reportProblem": "Informar de un problema",
+  "nav": {
+    "quickLinks": "Otras páginas",
+    "glossary": "Glosario",
+    "settings": "Ajustes",
+    "help": "Ayuda"
+  },
+  "documents": {
+    "added": "Documento añadido.",
+    "saved": "Cambios guardados.",
+    "removed": "Documento eliminado.",
+    "searchLabel": "Buscar por título",
+    "typeFilter": "Tipo de documento",
+    "allTypes": "Todos los tipos",
+    "sortLabel": "Ordenar por",
+    "sortNewest": "Actualizados recientemente",
+    "sortTitle": "Título (A–Z)",
+    "resultsCount_one": "{{count}} documento",
+    "resultsCount_other": "{{count}} documentos",
+    "noResults": "Ningún documento coincide",
+    "noResultsDetail": "Prueba con otra palabra o muestra todos los tipos.",
+    "resetFilters": "Borrar búsqueda y filtro",
+    "uncertainCount_one": "{{count}} oración incierta",
+    "uncertainCount_other": "{{count}} oraciones inciertas",
+    "openActionCount_one": "{{count}} acción pendiente",
+    "openActionCount_other": "{{count}} acciones pendientes",
+    "updated": "Actualizado {{when}}",
+    "openLabel": "Abrir {{title}}",
+    "editLabel": "Editar {{title}}",
+    "deleteLabel": "Eliminar {{title}}",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "deleteTitle": "¿Eliminar este documento?",
+    "deleteMessage": "Se eliminarán «{{title}}», sus oraciones reescritas y sus acciones. Esta acción no se puede deshacer.",
+    "deleteConfirm": "Eliminar documento",
+    "deleting": "Eliminando…",
+    "notFound": "Documento no encontrado",
+    "notFoundDetail": "Puede que se haya eliminado o que el enlace sea incorrecto. Vuelve a tus documentos o añade uno nuevo.",
+    "backToList": "Volver a documentos",
+    "types": {
+      "lease": "Alquiler",
+      "tax": "Impuestos",
+      "residence": "Residencia",
+      "medical": "Salud",
+      "education": "Educación",
+      "other": "Otro"
+    },
+    "form": {
+      "createTitle": "Añadir un documento",
+      "editTitle": "Editar datos del documento",
+      "titleLabel": "Título",
+      "typeLabel": "Tipo de documento",
+      "textLabel": "Texto del documento",
+      "textHelp": "Pega el texto o elige un archivo .txt abajo. Máximo 100 000 caracteres.",
+      "fileLabel": "O carga un archivo .txt",
+      "saving": "Guardando…",
+      "create": "Añadir documento",
+      "saveChanges": "Guardar cambios"
+    },
+    "resultsCount": "{{count}} documentos",
+    "uncertainCount": "{{count}} oraciones inciertas",
+    "openActionCount": "{{count}} acciones pendientes"
+  },
+  "errors": {
+    "INTERNAL_ERROR": "Algo salió mal. Inténtalo de nuevo.",
+    "NETWORK": "No se puede conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.",
+    "OFFLINE": "Estás sin conexión. Vuelve a conectarte e inténtalo de nuevo.",
+    "SERVER_UNAVAILABLE": "El servidor no responde. Inténtalo de nuevo en un momento.",
+    "NOT_FOUND": "Ese elemento ya no existe.",
+    "BAD_REQUEST": "No se entendió la solicitud.",
+    "PAYLOAD_TOO_LARGE": "Ese texto es demasiado grande para enviarlo.",
+    "TITLE_REQUIRED": "Escribe un título.",
+    "TITLE_TOO_LONG": "El título puede tener como máximo 120 caracteres.",
+    "INVALID_DOC_TYPE": "Elige un tipo de documento de la lista.",
+    "TEXT_REQUIRED": "Pega algo de texto o carga un archivo .txt.",
+    "TEXT_TOO_LONG": "El texto puede tener como máximo 100 000 caracteres.",
+    "NO_CHANGES": "No hay nada que guardar.",
+    "INVALID_LOCALE": "Ese idioma no es compatible.",
+    "INVALID_READING_LEVEL": "Elige un nivel de lectura del 1 al 12.",
+    "INVALID_DYSLEXIA_FRIENDLY": "El valor de ese ajuste no es válido.",
+    "INVALID_FONT_SIZE": "Elige un tamaño de texto de la lista.",
+    "INVALID_SPACING": "Elige un interlineado de la lista.",
+    "TERM_REQUIRED": "Escribe una palabra.",
+    "DEFINITION_REQUIRED": "Se necesita una definición.",
+    "TERM_EXISTS": "Esa palabra ya está en tu lista.",
+    "INVALID_TERM": "Escribe una palabra o frase corta en inglés de al menos 2 letras.",
+    "UPSTREAM_TIMEOUT": "El diccionario tardó demasiado en responder. Inténtalo de nuevo.",
+    "UPSTREAM_UNAVAILABLE": "No se puede acceder al diccionario ahora. Inténtalo más tarde.",
+    "UPSTREAM_RATE_LIMITED": "El diccionario está ocupado. Espera un minuto e inténtalo de nuevo.",
+    "UPSTREAM_DOWN": "El servicio del diccionario tiene problemas. Inténtalo más tarde.",
+    "UPSTREAM_ERROR": "El diccionario envió una respuesta inesperada. Inténtalo más tarde.",
+    "UPSTREAM_BAD_RESPONSE": "El diccionario envió una respuesta que no pudimos leer.",
+    "UNAUTHENTICATED": "Tu sesión ha terminado. Inicia sesión de nuevo.",
+    "EMAIL_REQUIRED": "Escribe tu correo electrónico.",
+    "EMAIL_INVALID": "Escribe un correo electrónico válido, como nombre@escuela.edu.",
+    "EMAIL_TAKEN": "Ya existe una cuenta con este correo. Prueba a iniciar sesión.",
+    "NAME_REQUIRED": "Escribe tu nombre.",
+    "NAME_TOO_LONG": "Tu nombre debe tener 60 caracteres o menos.",
+    "PASSWORD_REQUIRED": "Escribe tu contraseña.",
+    "PASSWORD_TOO_SHORT": "Usa al menos 8 caracteres.",
+    "PASSWORD_TOO_LONG": "Usa 128 caracteres o menos.",
+    "CREDENTIALS_REQUIRED": "Escribe tu correo y tu contraseña.",
+    "INVALID_CREDENTIALS": "El correo o la contraseña no son correctos.",
+    "TOO_MANY_ATTEMPTS": "Demasiados intentos fallidos. Espera 15 minutos e inténtalo de nuevo.",
+    "INVALID_ROLE": "Elige una de las opciones.",
+    "ROLE_REQUIRED": "Elige la opción que mejor te describe."
+  },
+  "glossary": {
+    "title": "Glosario",
+    "intro": "Busca una palabra difícil y guárdala en tu propia lista.",
+    "searchLabel": "Busca una palabra en inglés",
+    "searchHint": "Solo palabras en inglés. Las definiciones vienen de la Free Dictionary API, que usa Wiktionary.",
+    "lookUp": "Buscar",
+    "looking": "Buscando…",
+    "notFoundTitle": "No se encontró definición de «{{term}}»",
+    "notFoundDetail": "Revisa la ortografía o prueba con la forma base de la palabra (por ejemplo «remit» en lugar de «remitted»).",
+    "staleNote": "Se muestra una copia guardada porque no se pudo acceder al diccionario.",
+    "example": "Ejemplo:",
+    "source": "Fuente: {{name}}",
+    "openSource": "Abrir la página de la fuente",
+    "license": "Licencia: {{license}}",
+    "save": "Guardar en mi lista",
+    "saving": "Guardando…",
+    "savedMessage": "«{{term}}» se guardó en tu lista.",
+    "alreadySaved": "Esa palabra ya está en tu lista.",
+    "savedHeading": "Tus términos guardados",
+    "savedCount_one": "{{count}} término guardado",
+    "savedCount_other": "{{count}} términos guardados",
+    "savedEmpty": "Aún no hay términos guardados",
+    "savedEmptyDetail": "Busca una palabra arriba y guárdala para crear tu lista.",
+    "fromDocument": "De {{title}}",
+    "remove": "Quitar",
+    "removeLabel": "Quitar {{term}}",
+    "removeTitle": "¿Quitar este término?",
+    "removeMessage": "«{{term}}» se quitará de tu lista.",
+    "removedMessage": "«{{term}}» se quitó de tu lista.",
+    "savedCount": "{{count}} términos guardados"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "intro": "Elige el idioma, qué tan sencillo se escribe el texto y cómo se ve.",
+    "languageHeading": "Idioma",
+    "readingHeading": "Lectura",
+    "comfortHeading": "Comodidad de lectura",
+    "levelHelp": "Los números más bajos usan palabras y oraciones más cortas.",
+    "fontSizeLabel": "Tamaño del texto",
+    "sizes": {
+      "small": "Pequeño",
+      "medium": "Mediano",
+      "large": "Grande"
+    },
+    "spacingLabel": "Interlineado",
+    "spacings": {
+      "compact": "Ajustado",
+      "comfortable": "Normal",
+      "relaxed": "Amplio"
+    },
+    "dyslexiaLabel": "Espaciado más fácil de leer",
+    "dyslexiaHelp": "Más espacio entre letras y palabras y una tipografía más abierta. No es una fuente específica para la dislexia.",
+    "saved": "Ajustes guardados.",
+    "previewHeading": "Vista previa",
+    "previewText": "Debes avisar al arrendador por escrito al menos 60 días antes de que termine el contrato."
+  },
+  "help": {
+    "title": "Ayuda",
+    "intro": "Cómo funciona la Capa de lenguaje claro, en cuatro pasos.",
+    "stepsHeading": "Primeros pasos",
+    "steps": {
+      "add": {
+        "title": "Añade un documento",
+        "text": "Elige «Subir / Nuevo documento», pega el texto o carga un archivo .txt y ponle un título."
+      },
+      "read": {
+        "title": "Lee la versión sencilla",
+        "text": "Abre el documento para ver la versión en lenguaje claro junto al original."
+      },
+      "check": {
+        "title": "Revisa lo que es incierto",
+        "text": "Las oraciones de las que la herramienta no está segura aparecen marcadas e indican qué no está claro. Consulta a un profesional sobre ellas."
+      },
+      "save": {
+        "title": "Guarda las palabras que quieras recordar",
+        "text": "Usa el glosario para buscar una palabra difícil y guardarla en tu propia lista."
+      }
+    },
+    "faqHeading": "Preguntas frecuentes",
+    "faq": {
+      "binding": {
+        "q": "¿La versión sencilla tiene validez legal?",
+        "a": "No. Solo explica el original. Lo que cuenta es el texto original, así que consulta a un profesional antes de tomar decisiones legales."
+      },
+      "accuracy": {
+        "q": "¿Cómo sé si una oración se reescribió bien?",
+        "a": "Cada oración muestra un estado y una puntuación de confianza. Las oraciones inciertas indican qué no está claro en el original."
+      },
+      "files": {
+        "q": "¿Qué archivos puedo añadir?",
+        "a": "Puedes pegar texto o cargar un archivo .txt simple. Los archivos PDF y Word aún no son compatibles."
+      },
+      "privacy": {
+        "q": "¿Dónde se guardan mis datos?",
+        "a": "En la base de datos del equipo o servidor donde se ejecuta la aplicación. Al servicio de diccionario solo se envía la palabra que buscas."
+      }
+    },
+    "startButton": "Ir a mis documentos"
+  },
+  "auth": {
+    "signInTitle": "Iniciar sesión",
+    "registerTitle": "Crear cuenta",
+    "tagline": "Descifra textos institucionales con claridad.",
+    "email": "Correo electrónico",
+    "name": "Tu nombre",
+    "password": "Contraseña",
+    "passwordHint": "Al menos 8 caracteres.",
+    "showPassword": "Mostrar contraseña",
+    "keepSignedIn": "Mantener la sesión iniciada en este dispositivo",
+    "forgot": "¿Olvidaste tu contraseña?",
+    "forgotInfo": "En esta versión no se puede restablecer la contraseña por correo. Si no puedes iniciar sesión, crea una cuenta nueva con otro correo electrónico.",
+    "signIn": "Iniciar sesión",
+    "signingIn": "Iniciando sesión…",
+    "createAccount": "Crear cuenta",
+    "creating": "Creando cuenta…",
+    "or": "o",
+    "google": "Continuar con Google",
+    "sso": "Continuar con SSO",
+    "comingSoon": "Próximamente",
+    "ssoNote": "El acceso con Google y con cuentas de escuela o trabajo está previsto, pero aún no está disponible.",
+    "newHere": "¿Eres nuevo?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "signOut": "Cerrar sesión",
+    "signedOut": "Has cerrado sesión.",
+    "sessionEnded": "Tu sesión ha terminado. Inicia sesión de nuevo para continuar.",
+    "signedInAs": "Sesión iniciada como {{name}}",
+    "checking": "Comprobando tu sesión",
+    "checkingDetail": "Espera un momento.",
+    "formProblem": "Corrige los campos marcados e inténtalo de nuevo."
+  },
+  "onboarding": {
+    "title": "Vamos a configurarlo",
+    "editTitle": "Actualiza tu perfil",
+    "intro": "Unas preguntas rápidas para descifrar los textos institucionales de la forma que mejor te funcione.",
+    "editIntro": "Cambia para quién lees o lo sencillo que se escribe el texto. Tus documentos no cambian.",
+    "step": "Paso {{current}} de {{total}}",
+    "roleLegend": "¿Qué te describe mejor?",
+    "roles": {
+      "student": {
+        "name": "Estudiante",
+        "detail": "Trámites de escuela, vivienda y visado."
+      },
+      "adult": {
+        "name": "Adulto en general",
+        "detail": "Contratos de alquiler, cartas de impuestos, ayudas y formularios médicos."
+      },
+      "professional": {
+        "name": "Profesional",
+        "detail": "Paralegal, trabajador social o asesor que lee documentos para otras personas."
+      }
+    },
+    "next": "Siguiente",
+    "back": "Atrás",
+    "getStarted": "Empezar",
+    "save": "Guardar cambios",
+    "saving": "Guardando…",
+    "cancel": "Cancelar",
+    "levelHeading": "Elige tu nivel de complejidad de lectura",
+    "levelSimple": "Sencillo",
+    "levelStandard": "Estándar",
+    "levelDetailed": "Detallado",
+    "levelSuggested": "Sugerimos el grado {{level}} para «{{role}}». Cámbialo si te parece demasiado fácil o difícil.",
+    "levelLater": "Puedes cambiarlo cuando quieras en Ajustes.",
+    "notYou": "¿No eres tú?",
+    "accountHeading": "Cuenta",
+    "accountName": "Nombre",
+    "accountEmail": "Correo electrónico",
+    "accountRole": "Rol",
+    "accountRoleNone": "Aún sin elegir",
+    "changeProfile": "Cambiar rol y nivel de lectura"
+  }
 }

@@ -1,0 +1,93 @@
+/* Screens 01 (sign in / create account) and 02 (role selection), plus the signed-in user menu.
+   Uses the project's tokens from tokens.css so it matches the rest of the app. */
+
+.auth-shell { min-height: 100vh; background: var(--color-paper); }
+.auth-header {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--color-line); background: var(--color-surface);
+}
+.auth-main { display: grid; justify-items: center; padding: clamp(1.5rem, 5vw, 4rem) var(--space-4); }
+.auth-state { display: grid; gap: var(--space-4); justify-items: start; width: min(100% - 2rem, 40rem); margin: 4rem auto; }
+
+.auth-card {
+  width: min(100%, 28rem);
+  padding: var(--space-6) var(--space-5);
+  border: 1px solid var(--color-line); border-radius: var(--radius-md);
+  background: var(--color-surface); box-shadow: var(--shadow-soft);
+}
+.auth-card.onboarding { width: min(100%, 36rem); }
+.auth-card h1 { margin-bottom: var(--space-2); font-size: clamp(1.75rem, 5vw, 2.25rem); }
+.auth-card h1:focus { outline: none; }
+.auth-card .lede { margin-bottom: var(--space-5); font-size: 1rem; }
+.auth-logo {
+  display: grid; place-items: center; width: 2.75rem; height: 2.75rem; margin-bottom: var(--space-4);
+  border: 2px solid var(--color-ink); border-radius: var(--radius-sm); font-weight: 800;
+}
+.auth-notice { padding: var(--space-3); border-radius: var(--radius-sm); background: var(--color-blue-soft); color: var(--color-ink); }
+
+.auth-card .field input:not([type="checkbox"]):not([type="radio"]):not([type="range"]) {
+  font: inherit; color: var(--color-ink); background: var(--color-surface);
+  width: 100%; min-height: 2.75rem; padding: 0.6rem 0.75rem;
+  border: 1px solid #6b665c; border-radius: var(--radius-sm);
+}
+.auth-card .field [aria-invalid="true"] { border: 2px solid var(--color-red); }
+.auth-card .field input[type="range"] { width: 100%; min-height: 2.75rem; accent-color: var(--color-blue); }
+.auth-inline-choice { margin-top: var(--space-2); font-weight: 400; }
+
+.auth-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); }
+.auth-forgot { margin-bottom: var(--space-3); padding: var(--space-3); border-left: 4px solid var(--color-blue); background: var(--color-blue-soft); color: var(--color-ink); }
+.auth-submit { width: 100%; }
+.auth-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-3); margin-top: var(--space-5); }
+.auth-switch { margin: var(--space-5) 0 0; text-align: center; }
+.link-button {
+  display: inline; min-height: 2.75rem; padding: 0 var(--space-2); border: 0; background: none;
+  color: var(--color-blue); font: inherit; text-decoration: underline; cursor: pointer;
+}
+
+.auth-divider { display: flex; align-items: center; gap: var(--space-3); margin: var(--space-5) 0; color: var(--color-muted); }
+.auth-divider::before, .auth-divider::after { content: ""; flex: 1; height: 1px; background: var(--color-line); }
+.auth-sso { display: grid; gap: var(--space-3); }
+.auth-sso .button { width: 100%; flex-wrap: wrap; }
+.auth-sso .button:disabled { opacity: 1; border-style: dashed; color: var(--color-muted); cursor: not-allowed; }
+.soon { white-space: nowrap; padding: 0.05rem 0.5rem; border: 1px solid currentColor; border-radius: 999px; font-size: 0.75rem; font-weight: 700; }
+
+/* ---- screen 02 ---- */
+.onboarding-step { margin: 0 0 var(--space-2); color: var(--color-muted); font-size: var(--text-sm); font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.onboarding-step:focus { outline: none; }
+.progress { height: 0.5rem; margin-bottom: var(--space-5); overflow: hidden; border-radius: 999px; background: var(--color-line); }
+.progress span { display: block; height: 100%; background: var(--color-blue); transition: width 0.2s ease; }
+
+.role-options { margin: 0; padding: 0; border: 0; display: grid; gap: var(--space-3); }
+.role-options legend { margin-bottom: var(--space-3); padding: 0; font-size: var(--text-lg); font-weight: 700; }
+.role-card {
+  display: grid; grid-template-columns: auto 1fr; column-gap: var(--space-3); row-gap: 0.15rem; align-items: center;
+  padding: var(--space-4); border: 2px solid var(--color-line); border-radius: var(--radius-md);
+  background: var(--color-surface); cursor: pointer;
+}
+.role-card input { grid-row: span 2; width: 1.4rem; height: 1.4rem; margin: 0; accent-color: var(--color-blue); }
+.role-card:has(input:checked) { border-color: var(--color-blue); background: var(--color-blue-soft); }
+.role-card:focus-within { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+.role-name { font-weight: 800; }
+.role-detail { color: var(--color-muted); font-size: var(--text-sm); }
+
+.slider-ends { display: flex; justify-content: space-between; color: var(--color-muted); font-size: var(--text-sm); }
+.level-output { margin: var(--space-3) 0 var(--space-2); font-size: var(--text-lg); }
+
+/* ---- signed-in user, in the header ---- */
+.user-menu { display: flex; align-items: center; gap: var(--space-3); }
+.user-name { max-width: 12rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; }
+
+/* ---- settings: account ---- */
+.account-details { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-2) var(--space-4); margin: 0 0 var(--space-3); }
+.account-details dt { font-weight: 700; }
+.account-details dd { margin: 0; overflow-wrap: anywhere; }
+
+@media (max-width: 760px) {
+  .auth-card { padding: var(--space-5) var(--space-4); }
+  .auth-header { padding: var(--space-3) var(--space-4); }
+  .user-name { max-width: 7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .progress span { transition: none; }
+}

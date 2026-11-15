@@ -77,5 +77,282 @@
   "matchSummary_other": "{{matched}} of {{total}} sentences match the source · {{uncertain}} uncertain · {{skipped}} skipped",
   "readerFooterActions": "Reader verification actions",
   "howChecked": "How was this checked?",
-  "reportProblem": "Report a problem"
+  "reportProblem": "Report a problem",
+  "nav": {
+    "quickLinks": "Other pages",
+    "glossary": "Glossary",
+    "settings": "Settings",
+    "help": "Help"
+  },
+  "documents": {
+    "added": "Document added.",
+    "saved": "Changes saved.",
+    "removed": "Document deleted.",
+    "searchLabel": "Search by title",
+    "typeFilter": "Document type",
+    "allTypes": "All types",
+    "sortLabel": "Sort by",
+    "sortNewest": "Recently updated",
+    "sortTitle": "Title (A–Z)",
+    "resultsCount_one": "{{count}} document",
+    "resultsCount_other": "{{count}} documents",
+    "noResults": "No documents match",
+    "noResultsDetail": "Try a different word or show all types.",
+    "resetFilters": "Clear search and filter",
+    "uncertainCount_one": "{{count}} uncertain sentence",
+    "uncertainCount_other": "{{count}} uncertain sentences",
+    "openActionCount_one": "{{count}} action to take",
+    "openActionCount_other": "{{count}} actions to take",
+    "updated": "Updated {{when}}",
+    "openLabel": "Open {{title}}",
+    "editLabel": "Edit {{title}}",
+    "deleteLabel": "Delete {{title}}",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteTitle": "Delete this document?",
+    "deleteMessage": "“{{title}}” and its rewritten sentences and action items will be deleted. This cannot be undone.",
+    "deleteConfirm": "Delete document",
+    "deleting": "Deleting…",
+    "notFound": "Document not found",
+    "notFoundDetail": "It may have been deleted, or the link is wrong. Go back to your documents or add a new one.",
+    "backToList": "Back to documents",
+    "types": {
+      "lease": "Lease",
+      "tax": "Tax",
+      "residence": "Residence permit",
+      "medical": "Medical",
+      "education": "Education",
+      "other": "Other"
+    },
+    "form": {
+      "createTitle": "Add a document",
+      "editTitle": "Edit document details",
+      "titleLabel": "Title",
+      "typeLabel": "Document type",
+      "textLabel": "Document text",
+      "textHelp": "Paste the text, or choose a .txt file below. Up to 100,000 characters.",
+      "fileLabel": "Or load a .txt file",
+      "saving": "Saving…",
+      "create": "Add document",
+      "saveChanges": "Save changes"
+    },
+    "resultsCount": "{{count}} documents",
+    "uncertainCount": "{{count}} uncertain sentences",
+    "openActionCount": "{{count}} actions to take"
+  },
+  "errors": {
+    "INTERNAL_ERROR": "Something went wrong. Try again.",
+    "NETWORK": "Cannot reach the server. Check your connection and try again.",
+    "OFFLINE": "You are offline. Reconnect and try again.",
+    "SERVER_UNAVAILABLE": "The server is not responding. Try again in a moment.",
+    "NOT_FOUND": "That item no longer exists.",
+    "BAD_REQUEST": "The request was not understood.",
+    "PAYLOAD_TOO_LARGE": "That text is too large to send.",
+    "TITLE_REQUIRED": "Enter a title.",
+    "TITLE_TOO_LONG": "The title must be 120 characters or fewer.",
+    "INVALID_DOC_TYPE": "Choose a document type from the list.",
+    "TEXT_REQUIRED": "Paste some text or load a .txt file.",
+    "TEXT_TOO_LONG": "The text must be 100,000 characters or fewer.",
+    "NO_CHANGES": "Nothing to save.",
+    "INVALID_LOCALE": "That language is not supported.",
+    "INVALID_READING_LEVEL": "Choose a reading level from 1 to 12.",
+    "INVALID_DYSLEXIA_FRIENDLY": "That setting value is not valid.",
+    "INVALID_FONT_SIZE": "Choose a text size from the list.",
+    "INVALID_SPACING": "Choose a line spacing from the list.",
+    "TERM_REQUIRED": "Enter a word.",
+    "DEFINITION_REQUIRED": "A definition is required.",
+    "TERM_EXISTS": "That word is already in your list.",
+    "INVALID_TERM": "Enter an English word or short phrase of at least 2 letters.",
+    "UPSTREAM_TIMEOUT": "The dictionary took too long to answer. Try again.",
+    "UPSTREAM_UNAVAILABLE": "The dictionary cannot be reached right now. Try again later.",
+    "UPSTREAM_RATE_LIMITED": "The dictionary is busy. Wait a minute and try again.",
+    "UPSTREAM_DOWN": "The dictionary service is having problems. Try again later.",
+    "UPSTREAM_ERROR": "The dictionary sent an unexpected answer. Try again later.",
+    "UPSTREAM_BAD_RESPONSE": "The dictionary sent an answer we could not read.",
+    "UNAUTHENTICATED": "Your session has ended. Sign in again.",
+    "EMAIL_REQUIRED": "Enter your email address.",
+    "EMAIL_INVALID": "Enter a valid email address, like name@school.edu.",
+    "EMAIL_TAKEN": "An account with this email already exists. Try signing in.",
+    "NAME_REQUIRED": "Enter your name.",
+    "NAME_TOO_LONG": "Your name must be 60 characters or fewer.",
+    "PASSWORD_REQUIRED": "Enter your password.",
+    "PASSWORD_TOO_SHORT": "Use at least 8 characters.",
+    "PASSWORD_TOO_LONG": "Use 128 characters or fewer.",
+    "CREDENTIALS_REQUIRED": "Enter your email and password.",
+    "INVALID_CREDENTIALS": "The email or password is not correct.",
+    "TOO_MANY_ATTEMPTS": "Too many failed attempts. Wait 15 minutes and try again.",
+    "INVALID_ROLE": "Choose one of the options.",
+    "ROLE_REQUIRED": "Choose the option that describes you best."
+  },
+  "glossary": {
+    "title": "Glossary",
+    "intro": "Look up a hard word, then save it to your own list.",
+    "searchLabel": "Look up an English word",
+    "searchHint": "English words only. Definitions come from the Free Dictionary API, which uses Wiktionary.",
+    "lookUp": "Look up",
+    "looking": "Looking up…",
+    "notFoundTitle": "No definition found for “{{term}}”",
+    "notFoundDetail": "Check the spelling, or try the base form of the word (for example “remit” instead of “remitted”).",
+    "staleNote": "Showing a saved copy because the dictionary could not be reached.",
+    "example": "Example:",
+    "source": "Source: {{name}}",
+    "openSource": "Open source page",
+    "license": "Licence: {{license}}",
+    "save": "Save to my list",
+    "saving": "Saving…",
+    "savedMessage": "Saved “{{term}}” to your list.",
+    "alreadySaved": "That word is already in your list.",
+    "savedHeading": "Your saved terms",
+    "savedCount_one": "{{count}} saved term",
+    "savedCount_other": "{{count}} saved terms",
+    "savedEmpty": "No saved terms yet",
+    "savedEmptyDetail": "Look up a word above and save it to build your list.",
+    "fromDocument": "From {{title}}",
+    "remove": "Remove",
+    "removeLabel": "Remove {{term}}",
+    "removeTitle": "Remove this term?",
+    "removeMessage": "“{{term}}” will be removed from your list.",
+    "removedMessage": "Removed “{{term}}”.",
+    "savedCount": "{{count}} saved terms"
+  },
+  "settings": {
+    "title": "Settings",
+    "intro": "Choose the language, how simply text is written, and how it looks.",
+    "languageHeading": "Language",
+    "readingHeading": "Reading",
+    "comfortHeading": "Reading comfort",
+    "levelHelp": "Lower numbers use shorter words and shorter sentences.",
+    "fontSizeLabel": "Text size",
+    "sizes": {
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large"
+    },
+    "spacingLabel": "Line spacing",
+    "spacings": {
+      "compact": "Tight",
+      "comfortable": "Normal",
+      "relaxed": "Roomy"
+    },
+    "dyslexiaLabel": "Easier-to-read spacing",
+    "dyslexiaHelp": "Wider letter and word spacing and a more open typeface. This is not a dyslexia-specific font.",
+    "saved": "Settings saved.",
+    "previewHeading": "Preview",
+    "previewText": "You must tell the landlord in writing at least 60 days before the lease ends."
+  },
+  "help": {
+    "title": "Help",
+    "intro": "How the Plain Language Layer works, in four steps.",
+    "stepsHeading": "Getting started",
+    "steps": {
+      "add": {
+        "title": "Add a document",
+        "text": "Choose “Upload / New document”, paste the text or load a .txt file, and give it a title."
+      },
+      "read": {
+        "title": "Read the plain version",
+        "text": "Open the document to see the plain-language version next to the original."
+      },
+      "check": {
+        "title": "Check what is uncertain",
+        "text": "Sentences the tool is unsure about are marked and say what is unclear. Ask a professional about those."
+      },
+      "save": {
+        "title": "Save words you want to remember",
+        "text": "Use the Glossary to look up a hard word and keep it in your own list."
+      }
+    },
+    "faqHeading": "Common questions",
+    "faq": {
+      "binding": {
+        "q": "Is the plain version legally binding?",
+        "a": "No. It only explains the original. The original text is the one that counts, so ask a professional before making legal decisions."
+      },
+      "accuracy": {
+        "q": "How do I know a sentence was rewritten correctly?",
+        "a": "Each sentence shows a status and a confidence score. Uncertain sentences say what is unclear in the original."
+      },
+      "files": {
+        "q": "Which files can I add?",
+        "a": "You can paste text or load a plain .txt file. PDF and Word files are not supported yet."
+      },
+      "privacy": {
+        "q": "Where is my data stored?",
+        "a": "In the database of the computer or server running this app. The only thing sent to the dictionary service is the single word you look up."
+      }
+    },
+    "startButton": "Go to my documents"
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "registerTitle": "Create account",
+    "tagline": "Decode institutional text with clarity.",
+    "email": "Email",
+    "name": "Your name",
+    "password": "Password",
+    "passwordHint": "At least 8 characters.",
+    "showPassword": "Show password",
+    "keepSignedIn": "Keep me signed in on this device",
+    "forgot": "Forgot password?",
+    "forgotInfo": "Password reset by email is not available in this version. If you cannot sign in, create a new account with a different email address.",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "createAccount": "Create account",
+    "creating": "Creating account…",
+    "or": "or",
+    "google": "Continue with Google",
+    "sso": "Continue with SSO",
+    "comingSoon": "Coming soon",
+    "ssoNote": "Google and school or work sign-in are planned but not available yet.",
+    "newHere": "New here?",
+    "haveAccount": "Already have an account?",
+    "signOut": "Sign out",
+    "signedOut": "You have been signed out.",
+    "sessionEnded": "Your session ended. Sign in again to continue.",
+    "signedInAs": "Signed in as {{name}}",
+    "checking": "Checking your session",
+    "checkingDetail": "Please wait a moment.",
+    "formProblem": "Fix the highlighted fields and try again."
+  },
+  "onboarding": {
+    "title": "Let’s set you up",
+    "editTitle": "Update your profile",
+    "intro": "A few quick questions so we can decode institutional text the way that works best for you.",
+    "editIntro": "Change who you are reading for or how simply text is written. Your documents stay as they are.",
+    "step": "Step {{current}} of {{total}}",
+    "roleLegend": "Which best describes you?",
+    "roles": {
+      "student": {
+        "name": "Student",
+        "detail": "School, housing and visa paperwork."
+      },
+      "adult": {
+        "name": "Average adult",
+        "detail": "Leases, tax letters, benefits and medical forms."
+      },
+      "professional": {
+        "name": "Professional",
+        "detail": "A paralegal, caseworker or advisor reading documents for others."
+      }
+    },
+    "next": "Next",
+    "back": "Back",
+    "getStarted": "Get started",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "levelHeading": "Choose your reading complexity level",
+    "levelSimple": "Simple",
+    "levelStandard": "Standard",
+    "levelDetailed": "Detailed",
+    "levelSuggested": "We suggest grade {{level}} for “{{role}}”. Change it if it feels too easy or too hard.",
+    "levelLater": "You can change this at any time in Settings.",
+    "notYou": "Not you?",
+    "accountHeading": "Account",
+    "accountName": "Name",
+    "accountEmail": "Email",
+    "accountRole": "Role",
+    "accountRoleNone": "Not chosen yet",
+    "changeProfile": "Change role and reading level"
+  }
 }

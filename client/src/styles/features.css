@@ -1,0 +1,133 @@
+/* Phase 2 additions: forms, dialogs, document actions, glossary, settings, help,
+   and the reading-comfort preferences. Uses its own --pll-* tokens so it cannot clash with tokens.css. */
+
+:root {
+  --pll-text: #1f1d19;
+  --pll-muted: #57534a;
+  --pll-surface: #ffffff;
+  --pll-border: #c9c4b8;
+  --pll-field-border: #6b665c;
+  --pll-danger: #b3261e;
+  --pll-danger-bg: #fbeceb;
+  --pll-focus: #1a56c4;
+  --pll-radius: 8px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--pll-focus);
+  outline-offset: 2px;
+}
+
+/* ---- forms ---- */
+.field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+.field label { font-weight: 600; }
+.field input[type="text"],
+.field input[type="search"],
+.field select,
+.field textarea {
+  font: inherit;
+  color: var(--pll-text);
+  background: var(--pll-surface);
+  border: 1px solid var(--pll-field-border);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  min-height: 2.75rem;
+  width: 100%;
+}
+.field textarea { min-height: 10rem; resize: vertical; }
+.field input[type="range"] { width: 100%; min-height: 2.75rem; }
+.field [aria-invalid="true"] { border-color: var(--pll-danger); border-width: 2px; }
+.hint { color: var(--pll-muted); font-size: 0.9rem; margin: 0; }
+.form-error { color: var(--pll-danger); font-weight: 600; margin: 0.25rem 0 0; }
+.notice { color: var(--pll-muted); min-height: 1.5rem; margin: 0.5rem 0; }
+
+/* ---- buttons added in phase 2 ---- */
+.button-danger { background: var(--pll-danger); border: 2px solid var(--pll-danger); color: #fff; }
+.button-danger-outline { background: transparent; border: 2px solid var(--pll-danger); color: var(--pll-danger); }
+.button-danger:disabled, .button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ---- dialogs (native <dialog>) ---- */
+dialog.dialog {
+  width: min(36rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  padding: 1.5rem;
+  color: var(--pll-text);
+  background: var(--pll-surface);
+  border: 1px solid var(--pll-border);
+  border-radius: var(--pll-radius);
+}
+dialog.dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
+dialog.dialog h2 { margin-top: 0; }
+.dialog-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem; }
+
+/* ---- document list ---- */
+.quick-links { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0.5rem 0; }
+.quick-links a { min-height: 2.75rem; display: inline-flex; align-items: center; }
+.toolbar { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem; align-items: end; margin: 1rem 0 0.5rem; }
+.toolbar .field { margin-bottom: 0; }
+.document-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.meta-list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0.5rem 0 0; padding: 0; color: var(--pll-muted); font-size: 0.9rem; }
+.meta-list .flag { color: var(--pll-danger); font-weight: 600; }
+.card-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: flex-start; }
+.empty-state { border: 2px dashed var(--pll-border); border-radius: var(--pll-radius); padding: 1.5rem; margin: 1rem 0; background: var(--pll-surface); }
+.state-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; }
+.section-title { margin: 2rem 0 0.75rem; }
+
+/* ---- glossary ---- */
+.lookup-form { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-start; margin: 1rem 0; }
+.lookup-form .field { flex: 1 1 16rem; margin-bottom: 0; }
+.lookup-form .button { margin-top: 1.9rem; }
+.result-card, .term-item { border: 1px solid var(--pll-border); border-radius: var(--pll-radius); background: var(--pll-surface); padding: 1.25rem; margin: 1rem 0; }
+.result-card:focus { outline: none; }
+.phonetic { font-weight: 400; color: var(--pll-muted); }
+.meaning h3 { font-size: 1rem; font-style: italic; margin: 1rem 0 0.25rem; }
+.example { color: var(--pll-muted); }
+.term-list { list-style: none; margin: 0; padding: 0; }
+.term-item { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
+.term-item h3 { margin: 0 0 0.25rem; }
+.term-item p { margin: 0.25rem 0; }
+
+/* ---- settings ---- */
+.settings-page fieldset { border: 1px solid var(--pll-border); border-radius: var(--pll-radius); padding: 1rem 1.25rem; margin: 0 0 1.25rem; background: var(--pll-surface); }
+.settings-page legend { font-weight: 600; padding: 0 0.4rem; }
+.choice-group { margin-bottom: 1rem; }
+.choice-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.choice { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; }
+.choice input { width: 1.25rem; height: 1.25rem; }
+.preview { border-left: 4px solid var(--pll-focus); padding: 0.75rem 1rem; background: var(--pll-surface); }
+
+/* ---- help ---- */
+.steps { padding-left: 1.25rem; }
+.steps li { margin-bottom: 1rem; }
+.steps p { margin: 0.25rem 0 0; }
+.faq { display: grid; gap: 0.75rem; }
+.faq details { border: 1px solid var(--pll-border); border-radius: var(--pll-radius); padding: 0.75rem 1rem; background: var(--pll-surface); }
+.faq summary { cursor: pointer; font-weight: 600; min-height: 2.75rem; display: flex; align-items: center; }
+
+/* ---- reading-comfort preferences (set on <html> by lib/preferences.js) ---- */
+html[data-font-size="small"] { font-size: 93.75%; }
+html[data-font-size="medium"] { font-size: 100%; }
+html[data-font-size="large"] { font-size: 118.75%; }
+html[data-spacing="compact"] body { line-height: 1.45; }
+html[data-spacing="comfortable"] body { line-height: 1.65; }
+html[data-spacing="relaxed"] body { line-height: 1.9; }
+html[data-dyslexia="true"] body {
+  font-family: Verdana, "Trebuchet MS", Tahoma, sans-serif;
+  letter-spacing: 0.04em;
+  word-spacing: 0.16em;
+  line-height: 1.9;
+}
+
+@media (max-width: 40rem) {
+  .card-actions .button { flex: 1 1 auto; }
+  .term-item { flex-direction: column; }
+  .lookup-form .button { margin-top: 0; width: 100%; }
+}
+
+/* Very narrow screens (about 320px, or 400% zoom): let the header controls wrap so nothing is cut off. */
+@media (max-width: 30rem) {
+  .header-controls { flex-wrap: wrap; }
+  .header-controls .select-label { flex: 1 1 8rem; }
+  .header-controls .select-label select { min-width: 0; }
+}
